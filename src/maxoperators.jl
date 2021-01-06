@@ -110,8 +110,8 @@ end
 """
     max_argmax(mo::MaxOperator, x::Vector{<:Number})
 
-Returns the maximum and the argmaxim (i.e., the gradient of the max) of 
-a vector `x` using a given `MaxOperator`. 
+Returns the maximum and the argmaxim (i.e., the gradient of the max) of
+a vector `x` using a given `MaxOperator`.
 """
 max_argmax(mo::MaxOperator, x::Vector{<:Number}) = frule(maximum, mo, x)
 
@@ -127,4 +127,4 @@ function frule(::typeof(minimum), mo::MaxOperator, x::Vector{<:Number})
     return -m, q
 end
 
-min_argmin(mo::MaxOperator, x::Vector{<:Number}) = frule(minimum, mo, x)
+min_argmin!(mo::MaxOperator, x::Vector{<:Number}) = frule(minimum, mo, x)

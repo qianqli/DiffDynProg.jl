@@ -60,7 +60,7 @@ function ∂DPW!(mo::MaxOperator, θ, D, E, Q)
 	return @view(D[2:end,2:end]), @view(E[2:end, 2:end])
 end
 
-∂DPW!(mo::MaxOperator, θ, dtw::DTW) = ∂DPW!(mo::MaxOperator, θ, dtw.D, dtw.E, dtw.Q) 
+∂DPW!(mo::MaxOperator, θ, dtw::DTW) = ∂DPW!(mo::MaxOperator, θ, dtw.D, dtw.E, dtw.Q)
 
 function ∂DPW(mo::MaxOperator, θ::Matrix{T} where {T})
     n, m = size(θ)
@@ -72,23 +72,17 @@ end
 
 function generate_DPW(mo::MaxOperator, θ::AbstractMatrix)
 	dtw = DTW(θ)
-	return 
+	return
+end
+
+using Plots
 
 s = sin.(0:1:20pi)
 t = cos.(1:1:10pi)
 
 θ = (s .- t').^2
-
-mo = EntropyMax(10.0)
+mo = SquaredMax(5.0)
 
 dtw = DTW(θ)
-
 D, E = ∂DPW!(mo::MaxOperator, θ, dtw::DTW)
-
-using Plots
-
 plot(heatmap(θ), heatmap(D), heatmap(E))
-
-
-
-
